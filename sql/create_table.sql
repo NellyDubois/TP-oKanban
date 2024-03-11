@@ -24,7 +24,9 @@ CREATE TABLE "card" (
   "color" TEXT NOT NULL DEFAULT '#FFFFFF',
   "position" INTEGER NOT NULL DEFAULT 1,
   "list_id" INTEGER NOT NULL REFERENCES "list"("id") ON DELETE CASCADE, --clé étrangère faisant référence à la table list
-  -- ON DELETE CASCADE permet de maintenir l'intégrité référentielle entre la table card et la table list. Si une liste est supprimée, toutes les cartes liées à elles seront automatiquement supprimées par le SGBD pour éviter les orphelins.
+  -- ON DELETE CASCADE permet de maintenir l'intégrité référentielle entre la table card et la table list. 
+  --Si une liste est supprimée, toutes les cartes liées à elles seront automatiquement supprimées par le SGBD pour éviter 
+  --les orphelins.
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -42,7 +44,8 @@ CREATE TABLE "card_has_label"(
   "label_id" INTEGER NOT NULL REFERENCES "label"("id") ON DELETE CASCADE,
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY ("card_id", "label_id") 
-  -- On ajoute ici une contrainte de clé primaire pour s'assurer qu'on ne puisse pas avoir une association en double entre un même label et une même carte.
+  -- On ajoute ici une contrainte de clé primaire pour s'assurer qu'on ne puisse pas avoir une association en double 
+  --entre un même label et une même carte.
 );
 
 COMMIT;
