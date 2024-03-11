@@ -1,12 +1,12 @@
 # Modèle Physique des Données
 
-list (id INTEGER PK, name TEXT, position INTEGER, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
+**list** (id INTEGER PK, name TEXT, position INTEGER, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
 
-card (id INTEGER PK, content TEXT, color TEXT, position INTEGER, list_id INTEGER FK list(id), created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
+**card** (id INTEGER PK, content TEXT, color TEXT, position INTEGER, list_id INTEGER FK list(id), created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
 
-label (id INTEGER PK, name TEXT, color TEXT, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
+**label** (id INTEGER PK, name TEXT, color TEXT, created_at TIMESTAMPTZ, updated_at TIMESTAMPTZ)
 
-card_has_label(card_id INTEGER FK card(id), label_id INTEGER FK tag(id), created_at TIMESTAMPTZ, UNIQUE : (card_id, label_id))
+**card_has_label** (card_id INTEGER FK card(id), label_id INTEGER FK tag(id), created_at TIMESTAMPTZ, UNIQUE : (card_id, label_id))
 
 ## Comment le MPD a été construit à partir du MLD
 
