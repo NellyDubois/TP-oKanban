@@ -9,9 +9,9 @@ VALUES ('BACKLOG', 1),
        ('DONE', 4);
 
 INSERT INTO "card" ("content","position","color", "list_id")
-VALUES ('Concevoir le modèle de données', '#fff696', 1),
-       ('Créer les tables', '#c1e7ff', 1),
-       ('Insérer des données de test', '#ff96ff', 2);
+VALUES ('Concevoir le modèle de données', 1,'#fff696', 1),
+       ('Créer les tables', 2,'#c1e7ff', 1),
+       ('Insérer des données de test', 1,'#ff96ff', 2);
 
 INSERT INTO "label" ("name", "color")
 VALUES ('Urgent', 'red'),
