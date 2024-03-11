@@ -1,0 +1,23 @@
+# rainbow csv, header=true
+Table ;Champ;Type;Description
+list;id;integer;Identifiant de la table list
+list;name;varchar;Nom de la liste
+list;position;integer;Position de la liste sur la page: de gauche à droite
+list;created_at;timestamptz;date de création
+list;updated_at;timestamptz;date de mise à jour
+card;id;integer;Identifiant de la table card
+card;content;text;Nom/contenu de la carte
+card;color;varchar;Couleur de la carte
+card;position;integer;Position de la carte dans la liste
+card;list_id;integer;Liste dans laquelle se trouve la carte
+card;created_at;timestamptz;date de création
+card;updated_at;timestamptz;date de mise à jour
+label;id;integer;Identifiant de la table label
+label;name;varchar;Nom de l'étiquette
+label;color;varchar;Couleur de l'étiquette
+label;created_at;timestamptz;date de création
+label;updated_at;timestamptz;date de mise à jour
+card_has_label;card_id;integer;Identifiant de la table card
+card_has_label;label_id;integer;Identifiant de la table label
+card_has_label;created_at;timestamptz;date de création
+card_has_label;updated_at;timestamptz;date de mise à jour

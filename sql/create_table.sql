@@ -21,7 +21,7 @@ CREATE TABLE "list" (
 CREATE TABLE "card" (
   "id" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "content" TEXT NOT NULL,
-  "color" TEXT NOT NULL DEFAULT '#FFFFFF',
+  "color" VARCHAR NOT NULL DEFAULT '#FFFFFF',
   "position" INTEGER NOT NULL DEFAULT 1,
   "list_id" INTEGER NOT NULL REFERENCES "list"("id") ON DELETE CASCADE, --clé étrangère faisant référence à la table list
   -- ON DELETE CASCADE permet de maintenir l'intégrité référentielle entre la table card et la table list. 
