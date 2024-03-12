@@ -23,9 +23,10 @@ const app={
         button.addEventListener('click', cardModule.showAddCardModal);
       }
   
-      // Récupération du formulaire "associer un label à une carte"
-      const associateLabelForm = document.querySelector("#addLabelToCardModal form")
-      // Ajout d'un écouteur d'événement au traitement du formulaire pour ajouter un label à une carte
+      //Récupération du formulaire "associer un label à une carte"
+      //!CORRIGER car on récupère la même chose qu'en dessous//
+      const associateLabelForm = document.querySelector("#add-list-modal form")
+      //Ajout d'un écouteur d'événement au traitement du formulaire pour ajouter un label à une carte
       associateLabelForm.addEventListener("submit", labelModule.associateLabelToCard)
   
       // Sélection de tous les boutons pour fermer les modales
@@ -36,12 +37,12 @@ const app={
       }
   
       // Sélection du formulaire "ajouter une liste"
-      const addListForm = document.querySelector("#addListModal form") // Ici on selectionne le <form> qu'il y a dans la div qui a pour id addListModal
+      const addListForm = document.querySelector("#add-list-modal form") // Ici on selectionne le <form> qu'il y a dans la div qui a pour id addListModal
       // Ajout d'un écouteur d'événement sur la soumission du formulaire "ajouter une liste"
       addListForm.addEventListener("submit", listModule.handleAddListForm);
 
       // Récupération du formulaire pour ajouter une carte
-      const addCardForm = document.querySelector('#addCardModal form');
+      const addCardForm = document.querySelector('#add-card-modal form');
       // Ajout d'un écouteur d'événement sur la soumission du formulaire "ajouter une carte"
       addCardForm.addEventListener("submit", cardModule.handleAddCardForm);
     }

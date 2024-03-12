@@ -20,7 +20,7 @@ const port = process.env.PORT;
 app.use(express.static('assets'));
 
 //Configuration de CORS pour autoriser les requêtes depuis le front qui tourne sur le port 5174
-app.use(cors('http://localhost:5174'));
+app.use(cors('*'));
 
 // Configuration d'Express pour traiter les données envoyées par le front sous format de formulaire
 app.use(express.urlencoded({ extended: true}));
