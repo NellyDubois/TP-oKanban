@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>oKanban</title>
+
+    <!-- Chargement de la bibliothèque CSS Reset pour une meilleure compatibilité entre les navigateurs -->
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <!-- Chargement de la bibliothèque CSS Bulma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <!-- Chargement de la bibliothèque CSS du projet -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- defer: le navigateur le télécharge en arrière-plan pendant que la page HTML est en train d'être analyséemais attend que le document HTML soit complètement analysé avant d'exécuter ce script. Cela garantit que le script ne bloque pas le rendu de la page. -->
+    <!-- Chargement de la bibliothèque Font Awesome pour les icônes vectorielles-->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!--Chargement de la bibliothèque SirtableJS notamment pour faciliter les tris-->
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- classes Bulma qui permettent de définir un titre de la plus grande taille disponible et une marg verticale de 5 -->
+        <h1 class="title is-1 my-5">oKanban</h1>
+    </header>
+  
+    <!-- classe Bulma  pour créer un conteneur flexible-->
+    <main class="flex-container">
+        <!-- bouton pour ajouter une nouvelle liste-->
+        <!-- classe Bulma pour créer une colonne-->
+        <div class="column">
+            <button class="button is-success" id="addListButton">
+                <span class="icon is-small">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <!-- insécable -->
+                &nbsp; Ajouter une liste
+            </button>
+        </div>
+    </main>
+  
+    <!-- Création des modales (pop-up) pour ajouter, éditer et supprimer des listes et des cartes-->
+    <!-- Création de la modale pour une nouvelle liste avec les classes modal et modal-background de Bulma-->
+    <div class="modal" id="add-list-modal">
+        <!-- L'élément suivant crée un fond semi-transparent qui obscurcit le contenu derrière la modale. -->
+        <div class="modal-background"></div>
+        <!-- La section suivante contient le contenu de la modale pour ajouter une nouvelle liste. -->
+        <div class="modal-card">
+          <!-- Le formulaire ci-dessous permet à l'utilisateur de saisir le nom de la nouvelle liste. -->
+          <form>
+            <div class="modal-card-head">
+              <!-- Le titre de la modale pour ajouter une liste. -->
+              <p class="modal-card-title">Ajouter une liste</p>
+              <!-- Le bouton de fermeture de la modale, utilisant une icône de croix. -->
+              <button class="delete close" type="button" aria-label="close"></button>
+            </div>
+    
+            <div class="modal-card-body">
+              <!-- Label pour le champ de saisie du nom de la liste. -->
+              <label class="label">Nom de la liste</label>
+              <!-- Champ de saisie où l'utilisateur peut entrer le nom de la liste. -->
+              <input class="input" type="text" name="name" placeholder="Nom de la liste">
+            </div>
+    
+            <div class="modal-card-foot">
+              <!-- Bouton pour ajouter la liste nouvellement saisie. -->
+              <button class="button is-success">Ajouter</button>
+              <!-- Bouton pour annuler l'action et fermer la modale. -->
+              <button class="button close" type="button">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Modale pour éditer une liste existante -->
+      <div class="modal" id="edit-list-modal">
+        <!-- Fond semi-transparent pour obscurcir le contenu derrière la modale. -->
+        <div class="modal-background"></div>
+        <!-- Contenu de la modale pour éditer une liste existante. -->
+        <div class="modal-card">
+          <!-- Formulaire pour éditer le nom de la liste. -->
+          <form>
+            <div class="modal-card-head">
+              <!-- Titre de la modale pour modifier une liste. -->
+              <p class="modal-card-title">Modifier une liste</p>
+              <!-- Bouton de fermeture de la modale. -->
+              <button class="delete close" type="button" aria-label="close"></button>
+            </div>
+    
+            <div class="modal-card-body">
+              <!-- Label pour le champ de saisie du nom de la liste. -->
+              <label class="label">Nom de la liste</label>
+              <!-- Champ de saisie pour le nom de la liste à modifier. -->
+              <input class="input" type="text" name="name" placeholder="Nom de la liste">
+            </div>
+    
+            <div class="modal-card-foot">
+              <!-- Bouton pour appliquer les modifications à la liste. -->
+              <button class="button is-success">Modifier</button>
+              <!-- Bouton pour annuler l'action et fermer la modale. -->
+              <button class="button close" type="button">Annuler</button>
+            </div>
+            <!-- Champ caché pour stocker l'identifiant de la liste à modifier. -->
+            <input type="hidden" name="id">
+          </form>
+        </div>
+      </div>
+  
+    <!-- Création de la modale pour une nouvelle carte -->
+<div class="modal" id="add-card-modal">
+    <!-- Fond semi-transparent qui s'affiche derrière la boîte de dialogue -->
+    <div class="modal-background"></div>
+    <!-- Contenu de la boîte de dialogue -->
+    <div class="modal-card">
+      <!-- Formulaire pour ajouter une nouvelle carte -->
+      <form>
+        <!-- En-tête de la boîte de dialogue avec le titre -->
+        <div class="modal-card-head">
+          <p class="modal-card-title">Ajouter une carte</p>
+          <!-- Bouton de fermeture de la boîte de dialogue -->
+          <button class="delete close" type="button" aria-label="close"></button>
+        </div>
+  
+        <!-- Corps de la boîte de dialogue contenant les champs du formulaire -->
+        <div class="modal-card-body">
+          <label class="label">Contenu</label>
+          <input class="input" type="text" name="content" placeholder="Contenu de la carte">
+        </div>
+  
+        <!-- Deuxième champ pour la couleur de la carte -->
+        <div class="modal-card-body">
+          <label class="label">Couleur</label>
+          <input class="input" type="color" name="color" value="#ffffff">
+        </div>
+  
+        <!-- Pied de la boîte de dialogue contenant les boutons d'action -->
+        <div class="modal-card-foot">
+          <!-- Bouton pour ajouter la carte -->
+          <button class="button is-success">Ajouter</button>
+          <!-- Bouton pour annuler l'action -->
+          <button class="button close" type="button">Annuler</button>
+        </div>
+        <!-- Champ caché pour l'ID de la liste -->
+        <input type="hidden" name="list_id">
+      </form>
+    </div>
+  </div>
+  
+  <!-- Création de la modale pour éditer une carte -->
+  <div class="modal" id="edit-card-modal">
+    <!-- Fond semi-transparent qui s'affiche derrière la boîte de dialogue -->
+    <div class="modal-background"></div>
+    <!-- Contenu de la boîte de dialogue -->
+    <div class="modal-card">
+      <!-- Formulaire pour éditer une carte existante -->
+      <form>
+        <!-- En-tête de la boîte de dialogue avec le titre -->
+        <div class="modal-card-head">
+          <p class="modal-card-title">Modifier une carte</p>
+          <!-- Bouton de fermeture de la boîte de dialogue -->
+          <button class="delete close" type="button" aria-label="close"></button>
+        </div>
+  
+        <!-- Corps de la boîte de dialogue contenant les champs du formulaire -->
+        <div class="modal-card-body">
+          <label class="label">Contenu</label>
+          <input class="input" type="text" name="content" placeholder="Contenu de la carte">
+        </div>
+  
+        <!-- Deuxième champ pour la couleur de la carte -->
+        <div class="modal-card-body">
+          <label class="label">Couleur</label>
+          <input class="input" type="color" name="color">
+        </div>
+  
+        <!-- Pied de la boîte de dialogue contenant les boutons d'action -->
+        <div class="modal-card-foot">
+          <!-- Bouton pour modifier la carte -->
+          <button class="button is-success">Modifier</button>
+          <!-- Bouton pour annuler l'action -->
+          <button class="button close" type="button">Annuler</button>
+        </div>
+        <!-- Champ caché pour l'ID de la carte -->
+        <input type="hidden" name="id">
+      </form>
+    </div>
+  </div>
+  
+  <!-- Création de la modale pour supprimer une carte -->
+  <div class="modal" id="delete-card-modal">
+    <!-- Fond semi-transparent qui s'affiche derrière la boîte de dialogue -->
+    <div class="modal-background"></div>
+    <!-- Contenu de la boîte de dialogue -->
+    <div class="modal-card">
+      <!-- Formulaire pour confirmer la suppression d'une carte -->
+      <form>
+        <!-- En-tête de la boîte de dialogue avec le titre -->
+        <div class="modal-card-head">
+          <p class="modal-card-title">Etes-vous sûr</p>
+          <!-- Bouton de fermeture de la boîte de dialogue -->
+          <button class="delete close" type="button" aria-label="close"></button>
+        </div>
+        <!-- Corps de la boîte de dialogue contenant le message de confirmation -->
+        <div class="modal-card-body">
+          <p>Voulez-vous vraiment supprimer la carte '<span slot="card-content"></span>' ?</p>
+        </div>
+        <!-- Pied de la boîte de dialogue contenant les boutons d'action -->
+        <div class="modal-card-foot">
+          <!-- Bouton pour confirmer la suppression -->
+          <button class="button is-success">Confirmer</button>
+          <!-- Bouton pour annuler l'action -->
+          <button class="button close" type="button">Annuler</button>
+        </div>
+        <!-- Champ caché pour l'ID de la carte -->
+        <input type="hidden" name="id">
+      </form>
+    </div>
+  </div>
+  
+  <!--Création des templates pour les listes et les cartes-->
+  <!-- Template pour une liste -->
+<template id="list-template">
+    <!-- Structure de base d'une liste -->
+    <section class="message is-info" slot="list-id">
+      <div class="message-header">
+        <!-- Titre de la liste -->
+        <div class="list-name" slot="list-name"></div>
+        <!-- Bouton pour ajouter une nouvelle carte -->
+        <span class="icon is-clickable" slot="add-card-button"><i class="fas fa-plus"></i></span>
+      </div>
+  
+      <!-- Contenu de la liste, les cartes seront placées ici dynamiquement par JavaScript -->
+      <div class="message-body" slot="list-content">
+        <!-- Les cartes seront insérées ici via JavaScript -->
+      </div>
+    </section>
+  </template>
+  
+  <!-- Template pour une carte -->
+  <template id="card-template">
+    <!-- Structure de base d'une carte -->
+    <article class="card" slot="card-id">
+      <div class="card-header">
+        <!-- Contenu de la carte -->
+        <div class="card-header-title has-text-weight-medium" slot="card-content"></div>
+        <!-- Boutons d'édition et de suppression de la carte -->
+        <div class="card-header-icon">
+          <!-- Bouton d'édition de la carte -->
+          <span class="icon has-text-success edit-card-button"><i class="fas fa-pencil-alt"></i></span>
+          <!-- Bouton de suppression de la carte -->
+          <span class="icon has-text-danger ml-2 delete-card-button"><i class="fas fa-trash-alt"></i></span>
+        </div>
+      </div>
+    </article>
+  </template>
+
+   <!-- Chargement des fichiers JS -->
+     <script src="./js/app.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/listModule.js"></script>
+    <script src="./js/cardModule.js"></script>
+    <script src="./js/labelModule.js"></script>
+</body>  
+</html>

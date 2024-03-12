@@ -24,7 +24,7 @@ Card.belongsToMany(Label, {
   createdAt: 'created_at', // renommage en snake_case de la colonne createdAt
 });
 
-Tag.belongsToMany(Card, { 
+Label.belongsToMany(Card, { 
   through: 'card_has_label',// Nom de la table de liaison
   foreignKey: 'label_id',// Clé étrangère pour ce côté de l'association
   as: 'cards', //Alias pour l'acccès aux cartes depuis un label

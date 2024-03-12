@@ -1,6 +1,6 @@
 // Import des modules express et path
-const express = require('express')
-const path = require('path')
+const express = require('express');
+const path = require('path');
 
 // Import des controllers
 const cardController = require("./controllers/cardController");

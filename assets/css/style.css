@@ -1,0 +1,29 @@
+
+body {
+    width: 90%;/*largeur du corps de la page à 90% de la largeur de son conteneur parent*/
+    margin: 0 auto; /*centre horizontalement*/
+  }
+   
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    column-gap: 1.5rem;
+} 
+
+/* crée un espacement entre les articles, sauf après le dernier article. */
+article:not(:last-child) {
+    margin-bottom: 20px;
+}  
+  
+section {
+    width: 320px;
+    margin-bottom: 1.5rem;
+  }
+  
+@media (max-width: 600px) {
+    section {
+      width: 100%; /*100% de la largeur pour les mobiles*/
+    }
+}
+  
