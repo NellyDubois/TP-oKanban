@@ -24,7 +24,7 @@ const cardModule = {
         // On crée une copie de la template
         const newCard = document.importNode(template.content, true);
         // On change les valeurs, notamment le nom de la carte
-        newCard.querySelector('.card-name').textContent = card.title;
+        newCard.querySelector('.card-name').textContent = card.content;
         // On attribue un identifiant unique à la carte
         newCard.querySelector(".box").dataset.cardId = card.id;
         // On attribue à l'input caché (hidden) id_card la valeur de l'id de la carte

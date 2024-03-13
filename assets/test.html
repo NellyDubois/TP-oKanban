@@ -1,26 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>oKanban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- defer ci dessous diffère le chargement de la ressource a la fin du chargement du document (DOMContentLoaded) -->
+    <!-- https://www.alsacreations.com/astuce/lire/1562-script-attribut-async-defer.html -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 </head>
+
 <body>
-      <!-- Structure de base d'une carte -->
-      <article class="card" slot="card-id">
-        <div class="card-header">
-          <!-- Contenu de la carte -->
-          <div class="card-header-title has-text-weight-medium" slot="card-content"></div>
-          <!-- Boutons d'édition et de suppression de la carte -->
-          <div class="card-header-icon">
-            <!-- Bouton d'édition de la carte -->
-            <span class="icon has-text-success edit-card-button"><i class="fas fa-pencil-alt"></i></span>
-            <!-- Bouton de suppression de la carte -->
-            <span class="icon has-text-danger ml-2 delete-card-button"><i class="fas fa-trash-alt"></i></span>
-          </div>
+
+
+<section class="section ">
+    <div class="container">
+        <h1 class="title">
+            oKanban
+        </h1>
+        
+        <div class="column">
+            <button class="button is-success" id="addListButton">
+                <span class="icon is-small">
+                    <i class="fas fa-plus"></i>
+                </span>
+                &nbsp; Ajouter une liste
+            </button>
         </div>
-      </article>
-</body>
-</html>
-  
- 
+        
+        <div class="columns">
+
+            <div class="column is-full">
+                <!-- C'est dans la div ci dessous qu'on va avoir toutes nos listes -->
+                <div class="card-lists columns" id="lists-container">
+                    <!-- list -->
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body> 

@@ -14,9 +14,9 @@ const labelModule = {
         labelDom.classList.add("label");
         // Ajout d'un écouteur d'événement double clic pour dissocier le Label de la carte
         labelDom.addEventListener("dblclick", labelModule.dissociateLabelFromCard);
-        // Récupération de la carte dans le DOM où le Label sera placé
+        // Récupération de la carte dans le DOM où le label sera placé
         const card = document.querySelector(`.box[data-card-id="${id_card}"]`);
-        card.querySelector('.labels').append(labelDom);
+        card.querySelector('.tags').append(labelDom);
     },
     // Fonction qui dissocie un Label d'une carte
     dissociateLabelFromCard: async function(event) {

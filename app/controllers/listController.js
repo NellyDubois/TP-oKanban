@@ -7,10 +7,10 @@ const listController = {
     getAllLists: async (req, res) => {
         try {// On utilise la méthode findAll() (héritée de la classe Model de Sequelize) du modèle List pour récupérer toutes les listes
             const data = await List.findAll({
-                // pour inclure les cartes et les tags associés à chaque liste
+                // pour inclure les cartes et les labels associés à chaque liste
                 include: {
                     association: 'cards',
-                    include: 'tags'
+                    include: 'labels'
                 },
                 // pour trier les listes par position ascendante et les cartes par position ascendante
                 order: [                         

@@ -6,6 +6,8 @@ config();
 //Import de la classe Sequelize du module sequelize
 const { Sequelize } = require('sequelize');
 
+console.log(process.env.PG_URL);
+
 //Création d'une instance de Sequelize avec l'url de connexion à la base de données postgreSQL okanban stockée dans .env
 const sequelize = new Sequelize(process.env.PG_URL, {
   define: {

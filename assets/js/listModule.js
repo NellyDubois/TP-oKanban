@@ -35,7 +35,7 @@ const listModule = {
         const template = document.getElementById('template-list');
         const newList = document.importNode(template.content, true); // Copie du template
         // Attribution du titre de la liste
-        newList.querySelector('h2').textContent = list.title;
+        newList.querySelector('h2').textContent = list.name;
         // Attribution de l'identifiant de la liste à l'input hidden
         newList.querySelector('#id_list').value = list.id;
         // Ajout d'un écouteur d'événement sur le titre pour afficher le formulaire d'édition

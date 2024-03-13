@@ -19,7 +19,7 @@ const port = process.env.PORT;
 //Configuration d'Express pour aller chercher les fichiers statiques dans le dossier dist
 app.use(express.static('assets'));
 
-//Configuration de CORS pour autoriser les requêtes depuis le front qui tourne sur le port 5174
+//Configuration de CORS pour autoriser les requêtes depuis le front qui tourne sur le port 
 app.use(cors('*'));
 
 // Configuration d'Express pour traiter les données envoyées par le front sous format de formulaire

@@ -21,26 +21,32 @@
 </head>
 
 <body>
-    <header>
-        <!-- classes Bulma qui permettent de définir un titre de la plus grande taille disponible et une marg verticale de 5 -->
-        <h1 class="title is-1 my-5">oKanban</h1>
-    </header>
-  
-    <!-- classe Bulma  pour créer un conteneur flexible-->
-    <main class="flex-container">
-        <!-- bouton pour ajouter une nouvelle liste-->
-        <!-- classe Bulma pour créer une colonne-->
+  <section class="section ">
+    <div class="container">
+        <h1 class="title">
+            oKanban
+        </h1>
+        
         <div class="column">
             <button class="button is-success" id="addListButton">
                 <span class="icon is-small">
                     <i class="fas fa-plus"></i>
                 </span>
-                <!-- insécable -->
                 &nbsp; Ajouter une liste
             </button>
         </div>
-    </main>
-  
+        
+        <div class="columns">
+            <div class="column is-full">
+                <!-- Container des listes -->
+                <div class="card-lists columns" id="lists-container">                    
+                    <!--makeListInDOM vient insérer ici les listes-->                  
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
     <!-- Création des modales (pop-up) pour ajouter, éditer et supprimer des listes et des cartes-->
     <!-- Création de la modale pour une nouvelle liste avec les classes modal et modal-background de Bulma-->
     <div class="modal" id="add-list-modal">
@@ -221,43 +227,124 @@
   
   <!--Création des templates pour les listes et les cartes-->
   <!-- Template pour une liste -->
-<template id="list-template">
-    <!-- Structure de base d'une liste -->
-    <section class="message is-info" slot="list-id">
-      <div class="message-header">
-        <!-- Titre de la liste -->
-        <div class="list-name" slot="list-name"></div>
-        <!-- Bouton pour ajouter une nouvelle carte -->
-        <span class="icon is-clickable" slot="add-card-button"><i class="fas fa-plus"></i></span>
+  <template id="template-list">
+    
+    <!-- Le data-list-id est un dataset ie une sorte de variable en html -->
+    <!-- Les dataset c'est toujours en kebab-case côté HTML, mais en camelCase côté js -->
+    <!-- data-list-id="" permet de stocker l'id de la liste -->    
+    <!-- La classe panel de Bulma permet de créer une boîte avec un fond blanc -->
+    <!-- La classe is-one-quarter permet de définir la largeur de la liste -->
+    <div class="column is-one-quarter panel" data-list-id=""> 
+      <!-- La classe panel-heading de Bulma permet de créer un en-tête pour la boîte -->
+      <div class="panel-heading has-background-info">
+          <!-- La classe columns de Bulma permet de créer une grille de colonnes -->
+          <div class="columns">
+              <!-- La classe column de Bulma permet de créer une colonne -->
+              <div class="column">
+                  <!-- La classe has-text-white de Bulma permet de définir la couleur du texte en blanc -->
+                  <h2 class="has-text-white">Nom de la liste</h2>
+                  <!-- Formulaire pour modifier le titre de la liste -->
+                  <!-- Il est caché et sera affiché lorsqu'on double click sur le titre en retirant la class is-hidden -->
+                  <form action="" method="POST" class="is-hidden">
+                      <!-- Champ caché pour stocker l'ID de la liste -->
+                      <input id="id_list" type="hidden" name="list-id" value="1">
+                      <!-- Champ de saisie pour le titre de la liste -->
+                      
+                      <div class="field has-addons">
+                          <!-- La classe control de Bulma permet de créer un conteneur pour les éléments de formulaire -->
+                          <div class="control">
+                              <!-- La classe input de Bulma permet de créer un champ de saisie -->
+                              <input type="text" class="input is-small" name="title" value=""
+                                  placeholder="Nom de la liste">
+                          </div>
+                          <!-- La classe control de Bulma permet de créer un conteneur pour les éléments de formulaire -->
+                          <div class="control">
+                              <button class="button is-small is-success">Valider</button>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+              <!-- La classe column de Bulma permet de créer une colonne et la classe is-narrow -->
+              <div class="column is-narrow">
+                <!-- la classe Bulma is-pulled-right -->
+                  <a href="#" class="is-pulled-right button-add-card">
+                      <span class="icon is-small has-text-white">
+                          <!-- La classe fas de Font Awesome permet de créer une icône -->
+                          <i class="fas fa-plus"></i>
+                      </span>
+                  </a>
+              </div>
+          </div>
       </div>
-  
-      <!-- Contenu de la liste, les cartes seront placées ici dynamiquement par JavaScript -->
-      <div class="message-body" slot="list-content">
-        <!-- Les cartes seront insérées ici via JavaScript -->
+      <!-- La classe panel-block de Bulma permet de créer un bloc dans la boîte -->
+      <div class="panel-block is-block has-background-light">
       </div>
-    </section>
-  </template>
+    </div>
+</template>
   
   <!-- Template pour une carte -->
-  <template id="card-template">
-    <!-- Structure de base d'une carte -->
-    <article class="card" slot="card-id">
-      <div class="card-header">
-        <!-- Contenu de la carte -->
-        <div class="card-header-title has-text-weight-medium" slot="card-content"></div>
-        <!-- Boutons d'édition et de suppression de la carte -->
-        <div class="card-header-icon">
-          <!-- Bouton d'édition de la carte -->
-          <span class="icon has-text-success edit-card-button"><i class="fas fa-pencil-alt"></i></span>
-          <!-- Bouton de suppression de la carte -->
-          <span class="icon has-text-danger ml-2 delete-card-button"><i class="fas fa-trash-alt"></i></span>
+  <template id="template-card">
+       <!-- Le conteneur où se trouve toute la carte -->
+      <!-- La classe box de Bulma permet de créer une boîte avec un fond blanc -->
+       <div class="box" data-card-id="">
+        <!-- La classe columns de Bulma permet de créer une grille de colonnes -->
+        <div class="columns">
+            <!-- Le nom de la carte -->
+            <div class="column card-name">
+                Nom de la carte
+            </div>
+            <!-- Juste à coté du titre de la carte on aura les labels -->
+            <div class="column tags">
+                <!-- Dedans j'aurais toutes les span (les labels grâce à Bulma : https://bulma.io/documentation/elements/tag/) -->
+            </div>
+            <!-- Formulaire pour modifier une carte -->
+            <form action="" method="POST" class="is-hidden">
+                <!-- Input caché: id de la liste -->
+                <input id="id_card" type="hidden" name="card-id" value="1">
+                <!-- Champ de saisie pour le titre de la carte -->
+                <div class="field has-addons">
+                    <!-- La classe control de Bulma permet de créer un conteneur pour les éléments de formulaire -->
+                    <div class="control">
+                        <!-- La classe input de Bulma permet de créer un champ de saisie -->
+                        <input type="text" class="input is-small" name="title" value=""
+                            placeholder="Nom de la carte">
+                    </div>
+                    <!-- La classe control de Bulma permet de créer un conteneur pour les éléments de formulaire -->
+                    <div class="control">
+                        <input type="color" class="input is-small" name="color" value=""
+                            placeholder="Couleur de la carte">
+                    </div>
+                    <div class="control">
+                        <button class="button is-small is-success">Valider</button>
+                    </div>
+                </div>
+            </form>
+            <div class="column is-narrow">
+                <!-- Ci dessous le bouton pour associer un label à une carte -->
+                <a class="associate-label" href="#">
+                    <span class="icon is-small has-text-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                </a>
+                <!-- Ci-dessous le bouton stylo pour éditer une carte -->
+                <a class="edit-card" href="#">
+                    <span class="icon is-small has-text-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </span>
+                </a>
+                <!-- Ci-dessous le bouton poubelle pour supprimer une carte -->
+                <a class="delete-card" href="#">
+                    <span class="icon is-small has-text-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </span>
+                </a>
+            </div>
         </div>
-      </div>
-    </article>
+    </div>
   </template>
 
    <!-- Chargement des fichiers JS -->
-     <script src="./js/app.js"></script>
+    <script src="./js/app.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/listModule.js"></script>
     <script src="./js/cardModule.js"></script>
